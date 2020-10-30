@@ -57,3 +57,7 @@ alter table employee_payroll_service add taxable_pay double NOT NULL after deduc
 alter table employee_payroll_service add tax double NOT NULL after taxable_pay;
 alter table employee_payroll_service add net_pay double NOT NULL after tax;
 
+#UC10
+update employee_payroll_service set department = 'Sales' where name = 'Terissa';
+insert into employee_payroll_service(name,department, gender, basic_pay, deductions, taxable_pay, tax, net_pay, start) 
+                             values ('Terissa','Marketing','F',3000000,1000000,1000000,100000,6000000,'2010-01-02');
