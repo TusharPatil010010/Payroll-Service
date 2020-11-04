@@ -75,3 +75,11 @@ alter table employee add foreign key(payroll_id) payroll(payroll_id);
 create table phone_numbers (employeeId int not null, phone numeric(10) not null,
                             foreign key (employeeId) references employee(employeeId));
 alter table employee drop column basic_pay, drop column deductions, drop column taxable_pay, drop column tax, drop column net_pay;
+
+#UC13
+select employee.employeeId, employee.name, phone_numbers.phone, employee.address, department.departmentName, employee.gender,
+payroll.basic_pay, payroll.deductions, payroll.taxable_pay, payroll.tax, payroll.net_pay, employee.start
+from employee 
+inner join phone_numbers on employee.employeeId = phone_numbers.employeeId 
+inner join employee_dept on employee.employeeId = department.employeeId
+inner join payroll on employee.payroll_id = payroll.payroll_id;
