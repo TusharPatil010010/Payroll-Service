@@ -61,3 +61,17 @@ alter table employee_payroll_service add net_pay double NOT NULL after tax;
 update employee_payroll_service set department = 'Sales' where name = 'Terissa';
 insert into employee_payroll_service(name,department, gender, basic_pay, deductions, taxable_pay, tax, net_pay, start) 
                              values ('Terissa','Marketing','F',3000000,1000000,1000000,100000,6000000,'2010-01-02');
+
+#UC12
+alter table employee_payroll_service rename to employee;
+alter table employee rename column id to employeeId;
+alter table employee add payroll_id int not null after gender;
+create table department (employeeId int not null, departmentName varchar(100) not null,
+                         foreign key (employeeId) references employee(employeeId));
+create table payroll ( payroll_id int not null, basic_pay double not null, deductions double not null,
+                      taxable_pay double not null, tax double not null, net_pay double not null, primary key (payroll_id));
+
+alter table employee add foreign key(payroll_id) payroll(payroll_id);
+create table phone_numbers (employeeId int not null, phone numeric(10) not null,
+                            foreign key (employeeId) references employee(employeeId));
+alter table employee drop column basic_pay, drop column deductions, drop column taxable_pay, drop column tax, drop column net_pay;
